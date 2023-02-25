@@ -2,7 +2,7 @@ var command_list = [
     "ifconfig", "traceroute", "ping",
     "netstat", "whoami", "placeholder","placeholder",
     "placeholder", "placeholder", "placeholder", 
-    "placeholder","go back"
+    "placeholder","placeholder"
 ];
 
 setup_button_events();
@@ -18,15 +18,10 @@ function setup_button_events() {
     for (let i = 0; i < command_list.length; i++) {
         const button_element = document.getElementById(button_id_base+(i+1).toString());
         button_element.innerHTML = command_list[i];
-        // button_element.addEventListener("click", function () {
-        //     move_screen_options(command_list[i]);
-        // })
         button_element.onclick = function() {
             move_screen_options(command_list[i]);
         }
     }
-
-
 }
 
 /** 
@@ -53,7 +48,7 @@ function move_screen_options(command_name){
  */
 function get_options(command_name){
     var option_set = []
-
+    
     switch (command_name) {
         case "ifconfig": {
             option_set.push("a");
@@ -61,6 +56,12 @@ function get_options(command_name){
             option_set.push("L");
             option_set.push("r");
             option_set.push("No Option");
+            option_set.push(" ");
+            option_set.push(" ");
+            option_set.push(" ");
+            option_set.push(" ");
+            option_set.push(" ");
+            option_set.push(" ");
             break;
         }
         case "traceroute": {
@@ -69,6 +70,12 @@ function get_options(command_name){
             option_set.push("n");
             option_set.push("r");
             option_set.push("No Option");
+            option_set.push(" ");
+            option_set.push(" ");
+            option_set.push(" ");
+            option_set.push(" ");
+            option_set.push(" ");
+            option_set.push(" ");
             break;
         }
         case "ping": {
@@ -77,6 +84,12 @@ function get_options(command_name){
             option_set.push("o");
             option_set.push("r");
             option_set.push("No Option");
+            option_set.push(" ");
+            option_set.push(" ");
+            option_set.push(" ");
+            option_set.push(" ");
+            option_set.push(" ");
+            option_set.push(" ");
             break;
         } 
         case "netstat": {
@@ -88,10 +101,24 @@ function get_options(command_name){
             option_set.push("s");
             option_set.push("v");
             option_set.push("No Option");
+            option_set.push(" ");
+            option_set.push(" ");
+            option_set.push(" ");
             break;
         }
         case "whoami": {
             option_set.push("No Option");
+            option_set.push(" ");
+            option_set.push(" ");
+            option_set.push(" ");
+            option_set.push(" ");
+            option_set.push(" ");
+            option_set.push(" ");
+            option_set.push(" ");
+            option_set.push(" ");
+            option_set.push(" ");
+            option_set.push(" ");
+            option_set.push(" ");
             break;
         }
         default: {
@@ -103,23 +130,40 @@ function get_options(command_name){
 
 /** 
  * Retrieves the options for commands
- * @param command_name String. Name of the command being called
+ * @param operation_name String. Name of the command being called
+ * @param operation_set String Array. Array of options available for the command
  */
 function add_options(operation_name, operation_set ) {
+
+    // Re-assign the texts in the buttons
     var button_id_base = "button";
     for (let i = 0; i < operation_set.length; i++) {
         // Update the button texts to show the options list
         const button_element = document.getElementById(button_id_base+(i+1).toString());
-        button_element.innerHTML = "-" + operation_set[i];
-        const command_option = button_element.innerHTML;
 
-        // Wait until the user selects an option
-        button_element.onclick = function() {
-            run_command(operation_name, command_option);
-            button_element.onclick = function() {};
+        // Skip over the non-functional buttons
+        if (operation_set[i] != " ") {
+            button_element.innerHTML = "-" + operation_set[i];
+            const command_option = button_element.innerHTML;
+
+            // Execute the command once the user selects an option
+            button_element.onclick = function() {
+                run_command(operation_name, command_option);
+                button_element.onclick = function() {};
+            }
         }
     }
+
+    // Handle the special case of going back (reset) button
+    const button_element = document.getElementById("button12");
+    button_element.innerHTML = "Go Back";
+    button_element.onclick = function() {
+        setup_button_events();
+        button_element.onclick = function() {};
+    }
 }
+
+
 
 /** 
  * Send the command to the main for further processing  
