@@ -18,10 +18,48 @@ function setup_button_events() {
     for (let i = 0; i < command_list.length; i++) {
         const button_element = document.getElementById(button_id_base+(i+1).toString());
         button_element.innerHTML = command_list[i];
+        button_element.onmouseover = function () {
+            const description_info = command_descriptor(command_list[i]);
+            display_descriptor(description_info, button_element);
+        }
+        button_element.onmouseleave = function () {
+            remove_descriptor(button_element);
+        }
         button_element.onclick = function() {
             move_screen_options(command_list[i]);
         }
     }
+}
+
+/** 
+ * Removes the descripion of the button
+ * @param c_button Element (button). Current button to be processed
+ */
+function remove_descriptor(c_button) {
+    var to_be_removed = document.getElementsByClassName("descriptor");
+    for(var i = 0; i < to_be_removed.length; i++) {
+        to_be_removed[i].remove();
+    }   
+}
+
+/** 
+ * Displays the button description for the command
+ * @param description_info String. Description of the command
+ * @param c_button Element (button). Current button to be processed
+ */
+function display_descriptor(description_info, c_button) {
+    
+    var description_container = document.createElement('div');
+    description_container.className = "description-box descriptor";
+    
+    var desciption_tag = document.createElement('p');
+    desciption_tag.className = "tooltip-text descriptor";
+    desciption_tag.innerHTML = description_info;
+    
+    buttons_parent = c_button.parentElement;
+    buttons_parent.appendChild(description_container);
+    description_container.appendChild(desciption_tag);
+    desciption_tag.style.display = "block";
 }
 
 /** 
@@ -35,11 +73,43 @@ function move_screen_options(command_name){
         const button_element = document.getElementById(button_id_base+(i+1).toString());
         button_element.innerHTML = "";
         button_element.onclick = function() {};
-    }
+        button_element.onmouseleave = function () {};
+        button_element.onmouseover = function () {};
+    } 
 
     // Retrieve the options and update the button instructions
     op_set = get_options(command_name);
     add_options(command_name, op_set);
+}
+
+function command_descriptor(command_name) {
+    var command_description = "";
+    switch (command_name) {
+        case "ifconfig": {
+            command_description = "configure network interface parameters";
+            break;
+        }
+        case "traceroute": {
+            command_description = "print the route packets take to network host";
+            break;
+        }
+        case "ping": {
+            command_description = "send ICMP ECHO_REQUEST packets to network hosts";
+            break;
+        } 
+        case "netstat": {
+            command_description = "show network status";
+            break;
+        }
+        case "whoami": {
+            command_description = "display the current user"
+            break;
+        }
+        default: {
+            break;
+        }
+    }
+    return command_description;
 }
 
 /** 
@@ -178,9 +248,10 @@ function run_command(operation_name, operation_option) {
 }
 
 /** 
- * Receives the loading screen update from the main
+ * Receives the loading screen updates (start-loading or end-loading) from the main
  */
 window.commandTransfer.receive('fromMain', function (data) {
+    // Create the loading screen if the command is executing
     if(data == "start-loading") {
         // Create Loading Screen Children
         const loader_parent = document.getElementById("splitter");
@@ -211,9 +282,9 @@ window.commandTransfer.receive('fromMain', function (data) {
         loader_div3.appendChild(loader_div6);
     }
 
+    // Remove the loading screen once the command is ready to be displayed
     if(data == "end-loading") {
         var to_be_removed = document.getElementsByClassName("rmloader");
-        console.log(to_be_removed.length);
         for(var i = 0; i < to_be_removed.length; i++) {
             to_be_removed[i].remove();
         }   
