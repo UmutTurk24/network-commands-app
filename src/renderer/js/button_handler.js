@@ -32,7 +32,7 @@ function setup_button_events() {
 }
 
 /** 
- * Removes the descripion of the button
+ * Removes the description of the button
  * @param c_button Element (button). Current button to be processed
  */
 function remove_descriptor(c_button) {
@@ -82,6 +82,11 @@ function move_screen_options(command_name){
     add_options(command_name, op_set);
 }
 
+
+/** 
+ * Matches the given command_name with its description 
+ * @param command_name String. Name of the command being called
+ */
 function command_descriptor(command_name) {
     var command_description = "";
     switch (command_name) {
@@ -215,11 +220,22 @@ function add_options(operation_name, operation_set ) {
         if (operation_set[i] != " ") {
             button_element.innerHTML = "-" + operation_set[i];
             const command_option = button_element.innerHTML;
+            button_element.onmouseover = function () {
+                const description_info = option_descriptor(command_option, operation_name);
+                display_descriptor(description_info, button_element);
+            }
+
+            button_element.onmouseleave = function () {
+                remove_descriptor(button_element);
+            }
 
             // Execute the command once the user selects an option
             button_element.onclick = function() {
+                remove_descriptor(button_element);
                 run_command(operation_name, command_option);
                 button_element.onclick = function() {};
+                button_element.onmouseover = function() {};
+                button_element.onmouseleave = function() {};
             }
         }
     }
@@ -233,6 +249,132 @@ function add_options(operation_name, operation_set ) {
     }
 }
 
+/** 
+ * Matches the given command_name with its description 
+ * @param c_option String. Name of the command being selected
+ * @param c_name String. Name of the option of the command being selected
+ */
+function option_descriptor(c_option, c_name) {
+    let command_description = "";
+    switch (c_name) {
+        case "ifconfig": {
+            switch (c_option) {
+                case "-L": {
+                    command_description = "address filetime is displayed for IPv6 addresses";
+                    break
+                }
+                case "-a": {
+                    command_description = "all interfaces in the system";
+                    break
+                }
+                case "-l": {
+                    command_description = "list all available interfaces on the system with no additional information";
+                    break
+                }
+                case "-r": {
+                    command_description = "additional information related to the count of route references on the network interface";
+                    break
+                }
+                default: {
+                    break
+                }
+            }
+            break;
+        }
+        case "traceroute": {
+            switch (c_option) {
+                case "-a": {
+                    command_description = "turn on AS# lookups for each hop encountered";
+                    break
+                }
+                case "-d": {
+                    command_description = "enable socket level debugging";
+                    break
+                }
+                case "-n": {
+                    command_description = "print hop addresses nimerically rather than symbolically";
+                    break
+                }
+                case "-r": {
+                    command_description = "bypass the normal routing tables and send directly to a host on an attached network";
+                    break
+                }
+                default: {
+                    break
+                }
+            }
+            break;
+        }
+        case "ping": {
+            switch (c_option) {
+                case "-D": {
+                    command_description = "set the Don't Fragment bit";
+                    break
+                }
+                case "-f": {
+                    command_description = "Flood ping. It can be used to see how many packets are being dropped. WARNING: It can be hard on the network, use with caution";
+                    break
+                }
+                case "-o": {
+                    command_description = "exit successfully after receiving one reply packet";
+                    break
+                }
+                case "-r": {
+                    command_description = "bypass the normal routing tables and send directly to a host on an attached network";
+                    break
+                }
+                default: {
+                    break
+                }
+            }
+            break;
+        } 
+        case "netstat": {
+            switch (c_option) {
+                case "-a": {
+                    command_description = "with the default display, show the state of all sockets";
+                    break
+                }
+                case "-b": {
+                    command_description = "with the interface display (option -i), show the number of bytes in and out";
+                    break
+                }
+                case "-d": {
+                    command_description = "with either interface display";
+                    break
+                }
+                case "-l": {
+                    command_description = "print full IPv6 address";
+                    break
+                }
+                case "-r": {
+                    command_description = "show the routing tables";
+                    break
+                }
+                case "-s": {
+                    command_description = "show per-protocol statistics";
+                    break
+                }
+                case "-v": {
+                    command_description = "increase verbosity level";
+                    break
+                }
+                default: {
+                    break
+                }
+            }
+            break;
+        }
+        case "whoami": {
+            
+            break;
+        }
+        default: {
+            break;
+        }
+    }
+    return command_description
+}
 
 
 /** 
