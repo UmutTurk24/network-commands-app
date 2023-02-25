@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- npx tailwindcss -i ./src/renderer/css/style.css -o ./src/r
+enderer/css/output.css --watch -->
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline'" />
+
+  <title>Network Command Pad</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/output.css" />
+
+  <!-- <script src="js/renderer.js" defer></script> -->
+  <script src="js/button_handler.js" defer></script>
+  
+
+</head>
+
+<body class="bg-teal-700">
+
+  <div class="max-w-xl m-auto h-screen align-center justify-center">
+    
+    
+    <div class = "grid grid-cols-3 m-auto">
+
+      <div class="mt-6 mx-4"> 
+        <button type="button" id = "button1"
+          class="w-28 h-20 m-auto py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-teal-500 hover:bg-teal-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+          ifconfig
+        </button>
+      </div>
+      <div class="mt-6 mx-4"> 
+        <button type="button" id = "button2"
+          class="w-28 h-20 m-auto py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-teal-500 hover:bg-teal-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+          traceroute
+        </button>
+      </div>
+      <div class="mt-6 mx-4"> 
+        <button type="button" id = "button3"
+          class="w-28 h-20 m-auto py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-teal-500 hover:bg-teal-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+          ping
+        </button>
+      </div>
+
+      <div class="mt-6 mx-4"> 
+        <button type="button" id = "button4"
+          class="w-28 h-20 m-auto py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-teal-500 hover:bg-teal-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+          netstat
+        </button>
+      </div>
+
+      <div class="mt-6 mx-4"> 
+        <button type="button" id = "button5"
+          class="w-28 h-20 m-auto py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-teal-500 hover:bg-teal-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+          whoami
+        </button>
+      </div>
+
+      <div class="mt-6 mx-4"> 
+        <button type="button" id = "button6"
+          class="w-28 h-20 m-auto py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-teal-500 hover:bg-teal-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+          placeholder
+        </button>
+      </div>
+
+      <div class="mt-6 mx-4"> 
+        <button type="button" id = "button7"
+          class="w-28 h-20 m-auto py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-teal-500 hover:bg-teal-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+          placeholder
+        </button>
+      </div>
+
+      <div class="mt-6 mx-4"> 
+        <button type="button" id = "button8"
+          class="w-28 h-20 m-auto py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-teal-500 hover:bg-teal-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+          placeholder
+        </button>
+      </div>
+
+      <div class="mt-6 mx-4"> 
+        <button type="button" id = "button9"
+          class="w-28 h-20 m-auto py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-teal-500 hover:bg-teal-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+          placeholder
+        </button>
+      </div>
+
+      <div class="mt-6 mx-4"> 
+        <button type="button" id = "button10"
+          class="w-28 h-20 m-auto py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-teal-500 hover:bg-teal-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+          placeholder
+        </button>
+      </div>
+
+      <div class="mt-6 mx-4"> 
+        <button type="button" id = "button11"
+          class="w-28 h-20 m-auto py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-teal-500 hover:bg-teal-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+          placeholder
+        </button>
+      </div>
+
+      <div class="mt-6 mx-4"> 
+        <button type="button" id = "button12"
+          class="w-28 h-20 m-auto py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-teal-500 hover:bg-teal-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+          placeholder
+        </button>
+      </div>
+
+    </div>
+
+    <!-- 
+      <div class="mt-6"> 
+        <button type="button" id = "but1"
+          class="w-15 h-20 m-auto py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-teal-500 hover:bg-teal-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+          Command1
+        </button>
+      </div>
+     -->
+
+
+  </div>
+</body>
+
+</html>

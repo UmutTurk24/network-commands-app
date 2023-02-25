@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- npx tailwindcss -i ./src/renderer/css/command-style.css -o ./src/r
+enderer/css/command-style-output.css --watch -->
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline'" />
+
+  <title>Command Output</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/command-style-output.css" />
+
+  <script src="../js/command_handler.js" defer></script>
+  <!-- <script src="js/renderer.js" defer></script> -->
+</head>
+<body class="bg-neutral-800 text-orange-400">
+    <div class = "max-w-xl m-auto h-screen align-center justify-center my-1.5 mx-1.5">
+        <a id = "command_title" class = "text-base">
+            TITLE
+        </a>
+        <p id = "command_text" class = "text-xs mt-2">
+            Hello
+        </p>
+    </div>
+</body>
