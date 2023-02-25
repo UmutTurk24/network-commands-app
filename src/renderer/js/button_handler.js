@@ -116,6 +116,7 @@ function add_options(operation_name, operation_set ) {
         // Wait until the user selects an option
         button_element.onclick = function() {
             run_command(operation_name, command_option);
+            button_element.onclick = function() {};
         }
     }
 }
@@ -132,6 +133,9 @@ function run_command(operation_name, operation_option) {
     });
 }
 
+/** 
+ * Receives the loading screen update from the main
+ */
 window.commandTransfer.receive('fromMain', function (data) {
     if(data == "start-loading") {
         // Create Loading Screen Children
