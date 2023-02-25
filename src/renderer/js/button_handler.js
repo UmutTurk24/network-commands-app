@@ -4,14 +4,8 @@ var command_list = [
     "placeholder", "placeholder", "placeholder", 
     "placeholder","go back"
 ];
-const myfun = function (command_name) {
-    move_screen_options(command_name);
-}
 
 setup_button_events();
-
-
-
 
 /** 
  * Event initializer
@@ -20,7 +14,6 @@ setup_button_events();
 function setup_button_events() {
     // Base-string for the button ids
     var button_id_base = "button";
-    console.log("Here");
     // Add an event listener to every button
     for (let i = 0; i < command_list.length; i++) {
         const button_element = document.getElementById(button_id_base+(i+1).toString());
@@ -32,6 +25,8 @@ function setup_button_events() {
             move_screen_options(command_list[i]);
         }
     }
+
+
 }
 
 /** 
@@ -136,3 +131,43 @@ function run_command(operation_name, operation_option) {
         operation_option
     });
 }
+
+window.commandTransfer.receive('fromMain', function (data) {
+    if(data == "start-loading") {
+        // Create Loading Screen Children
+        const loader_parent = document.getElementById("splitter");
+
+        var loader_div = document.createElement('div');
+        loader_div.className = "loader rmloader";
+        loader_parent.appendChild(loader_div);
+
+        var loader_div2 = document.createElement('div');
+        loader_div2.className = "loader-inner loading rmloader";
+        loader_div.appendChild(loader_div2);
+
+        var loader_div3 = document.createElement('div');
+        loader_div3.className = "loading-box rmloader";
+        loader_div2.appendChild(loader_div3);
+        // Create Loading Screen Siblings
+        var loader_div4 = document.createElement('div');
+        loader_div4.className = "circular-loader rmloader";
+        loader_div3.appendChild(loader_div4);
+        
+        var loader_div5 = document.createElement('div');
+        loader_div5.className = "error-cross rmloader";
+        loader_div3.appendChild(loader_div5);
+
+        var loader_div6 = document.createElement('div');
+        loader_div6.className = "loader-message rmloader";
+        loader_div6.innerHTML = "Executing your command...";
+        loader_div3.appendChild(loader_div6);
+    }
+
+    if(data == "end-loading") {
+        var to_be_removed = document.getElementsByClassName("rmloader");
+        console.log(to_be_removed.length);
+        for(var i = 0; i < to_be_removed.length; i++) {
+            to_be_removed[i].remove();
+        }   
+    }
+});

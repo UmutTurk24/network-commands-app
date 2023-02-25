@@ -38,7 +38,6 @@ const create_main_window = () => {
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
-// app.on('ready', create_main_window);
 app.on('ready', () => {
   // Create the main window for the application
   create_main_window();
@@ -53,13 +52,9 @@ ipcMain.on('toMain', async (_, options) => {
   if (options.operation_option == "-No Option") {
     options.operation_option = "";
   }
-  const operation = options.operation_name + " " + options.operation_option;
 
+  const operation = options.operation_name + " " + options.operation_option;
   let op_result = await perform_execution(operation);
-  console.log(op_result);
-  console.log("no result");
-  // while (op_result == "") {};
-  // await new Promise(r => setTimeout(r, 10000));
 
   create_command_window();
   command_window.webContents.on('did-finish-load', function () { 
@@ -69,16 +64,17 @@ ipcMain.on('toMain', async (_, options) => {
   // Inform the main_window that process was complete. Go back to the initial state
 });
 
-
-
 async function perform_execution(operation) {
+  main_window.webContents.send('fromMain', "start-loading");
   // Execute the async exec function and retrieve the output (stdout)
-  async function lsExample(operation) {
+  async function execution(operation) {
     const { stdout, stderr } = await exec(operation);
     // No error handling. Given operations will not be invalid.
     return stdout;
   }
-  let result = await lsExample(operation);
+  let result = await execution(operation);
+  main_window.webContents.send('fromMain', "end-loading");
+
   return result;
 }
 
