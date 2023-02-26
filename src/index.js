@@ -70,6 +70,10 @@ async function perform_execution(operation) {
   async function execution(operation) {
     const { stdout, stderr } = await exec(operation);
     // No error handling. Given operations will not be invalid.
+    if (stderr) {
+      console.log("here");
+      return stderr;
+    }
     return stdout;
   }
   let result = await execution(operation);
