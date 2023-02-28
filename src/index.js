@@ -31,7 +31,7 @@ const create_main_window = () => {
   main_window.loadFile(path.join(__dirname, './renderer/index.html'));
 
   // Open the DevTools.
-  main_window.webContents.openDevTools();
+  // main_window.webContents.openDevTools();
 };
 
 
@@ -96,7 +96,7 @@ const create_command_window = () => {
   });
   command_window.removeMenu();
   command_window.loadFile(path.join(__dirname, './renderer/html/web-template.html'));
-  command_window.webContents.openDevTools();
+  // command_window.webContents.openDevTools();
 }
 
 
