@@ -205,8 +205,6 @@ function get_options(command_name){
             option_set.push("a");
             option_set.push("b");
             option_set.push("d");
-            // option_set.push("l");
-            // option_set.push("r");
             option_set.push("s");
             option_set.push("v");
             option_set.push("No Option");
