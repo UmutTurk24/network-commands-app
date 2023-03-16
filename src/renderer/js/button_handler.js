@@ -14,6 +14,7 @@ setup_button_events();
 function setup_button_events() {
     // Base-string for the button ids
     var button_id_base = "button";
+    remove_current_command();
     // Add an event listener to every button
     for (let i = 0; i < command_list.length; i++) {
         const button_element = document.getElementById(button_id_base+(i+1).toString());
@@ -354,6 +355,11 @@ function get_options(command_name){
  */
 function add_options(operation_name, operation_set ) {
 
+    // Display the current command name
+    var display_box = document.getElementById("current_command_name");
+    display_box.innerHTML = operation_name;
+
+
     // Re-assign the texts in the buttons
     var button_id_base = "button";
     for (let i = 0; i < operation_set.length; i++) {
@@ -364,7 +370,6 @@ function add_options(operation_name, operation_set ) {
         if (operation_set[i] != " ") {
             button_element.innerHTML = "-" + operation_set[i];
             const command_option = button_element.innerHTML;
-
 
             // Add onmouseover/onmouseleave functions on the buttons
             button_element.onmouseover = function () {
@@ -380,6 +385,7 @@ function add_options(operation_name, operation_set ) {
             // Execute the command once the user selects an option
             button_element.onclick = function() {
                 remove_descriptor(button_element);
+                remove_current_command();
                 run_command(ca_name, command_option);
                 button_element.onclick = function() {};
                 button_element.onmouseover = function() {};
@@ -395,6 +401,11 @@ function add_options(operation_name, operation_set ) {
         setup_button_events();
         // button_element.onclick = function() {};
     }
+}
+
+function remove_current_command() {
+    var display_box = document.getElementById("current_command_name");
+    display_box.innerHTML = "&nbsp";
 }
 
 function modify_unique_commands(c_name) {

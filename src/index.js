@@ -16,7 +16,7 @@ const create_main_window = () => {
   // Create the browser window.
   main_window = new BrowserWindow({
     width: 415,
-    height: 500,
+    height: 550,
     resizable: true,
     webPreferences: {
       nodeIntegration: true,
