@@ -385,9 +385,7 @@ function add_options(operation_name, operation_set ) {
             // Execute the command once the user selects an option
             button_element.onclick = function() {
                 remove_descriptor(button_element);
-                remove_current_command();
                 run_command(ca_name, command_option);
-                button_element.onclick = function() {};
                 button_element.onmouseover = function() {};
                 button_element.onmouseleave = function() {};
             }
@@ -711,7 +709,9 @@ function option_descriptor(c_option, c_name) {
  * @param operation_option String. Option of the command being called
  */
 function run_command(operation_name, operation_option) {
+    let operation_code = 0;
     window.commandTransfer.send('toMain', {
+        operation_code,
         operation_name,
         operation_option
     });
@@ -737,6 +737,7 @@ window.commandTransfer.receive('fromMain', function (data) {
         var loader_div3 = document.createElement('div');
         loader_div3.className = "loading-box rmloader";
         loader_div2.appendChild(loader_div3);
+
         // Create Loading Screen Siblings
         var loader_div4 = document.createElement('div');
         loader_div4.className = "circular-loader rmloader";
@@ -750,6 +751,21 @@ window.commandTransfer.receive('fromMain', function (data) {
         loader_div6.className = "loader-message rmloader";
         loader_div6.innerHTML = "Executing your command...";
         loader_div3.appendChild(loader_div6);
+
+        // Create the exit button
+        var exit_button = document.createElement('button');
+        exit_button.className = "btn loading-test";
+        exit_button.innerHTML = "Run in the Background";
+
+        exit_button.onclick = function() {
+            let operation_code = 1;
+            window.commandTransfer.send('toMain', {
+                operation_code,
+            });
+        }
+        
+        loader_div3.appendChild(exit_button);
+
     }
 
     // Remove the loading screen once the command is ready to be displayed
